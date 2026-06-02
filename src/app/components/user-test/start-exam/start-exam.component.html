@@ -1,0 +1,130 @@
+<div class="container">
+    <br />
+    <div class="d-flex justify-content-between align-items-center mb-3" *ngIf="!this.examMetaData?.finishedOn">
+        <h4>Exam Timer</h4>
+        <span class="badge fs-5" [ngClass]="getTimerBadgeClass()">
+            {{ timerDisplay }}
+        </span>
+    </div>
+
+
+    <div class="exam-layout">
+        <!-- Left Section -->
+        <div class="exam-container">
+            <div class="exam-header">
+                <div class="exam-header-content text-center">
+                    <h1>Exam in Progress</h1>
+                    <p class="question-progress">
+                        Question {{ currentQuestionIndex + 1 }} of {{ userExamQuestions.length }}
+                    </p>
+                </div>
+            </div>
+
+            <!-- Question Section -->
+            <div class="question-section">
+                <p>Question:</p>
+                <div class="question-text">
+                    <!-- Code-based question -->
+                    <pre *ngIf="isCodeQuestion(currentQuestionDetails?.questionText)">
+  <code class="preserve-whitespace" [innerHTML]="currentQuestionDetails?.questionText"></code>
+            </pre>
+
+                    <!-- Regular question -->
+                    <ng-container *ngIf="!isCodeQuestion(currentQuestionDetails?.questionText)">
+                        <div class="question-plain-text">
+                            {{ currentQuestionDetails?.questionText }}
+                        </div>
+                    </ng-container>
+                </div>
+
+                <!-- Choices Section -->
+                <div class="choices">
+                    <div class="choice" *ngFor="let choice of currentQuestionDetails?.choices"
+                        [ngClass]="getChoiceClass(choice)">
+                        <!-- Normal Text Choice -->
+                        <!-- <label *ngIf="!choice.isCode" class="text-choice">
+                            <input type="radio" [id]="'choice-' + choice.choiceId" [value]="choice.choiceId"
+                                [(ngModel)]="selectedChoice" name="choices" [disabled]="disableChoices"
+                                [class.disabled]="disableChoices" (change)="updateSelectedChoiceText()" />
+                            {{ choice.choiceText }}
+                        </label> -->
+                        <label *ngIf="!choice.isCode" class="text-choice">
+                            <input type="radio" [id]="'choice-' + choice.choiceId" [value]="choice.choiceId"
+                                [(ngModel)]="selectedChoice" name="choices" [disabled]="disableChoices"
+                                [class.disabled]="disableChoices" (change)="updateSelectedChoiceText()" />
+                            {{ choice.choiceText }}
+                        </label>
+
+
+                        <!-- Code Block Choice -->
+                        <pre *ngIf="choice.isCode" class="code-block">
+  <code class="preserve-whitespace" [innerHTML]="choice.choiceText"></code>
+              </pre>
+                    </div>
+                </div>
+
+                <!-- Mark for Review -->
+                <div class="mark-review">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="markForReview" />
+                        Mark for Review
+                    </label>
+                    &nbsp;
+                    <label *ngIf="examMetaData?.isPracticeMode">
+                        <input type="checkbox" [(ngModel)]="showExplanation" (ngModelChange)="getExplanationText()" />
+                        Show Explanation
+                    </label>
+                    &nbsp;
+                    <label>
+                        <span *ngIf="examMetaData?.isPracticeMode" class="practice-mode">Test is in Practice Mode</span>
+                        <span *ngIf="!examMetaData?.isPracticeMode" class="test-mode">Test is in Exam Mode</span>
+                    </label>
+                </div>
+
+                <div class="explanation-section" *ngIf="showExplanation">
+                    <div [innerHTML]="formatExplanation(currentQuestionAnswerExplanation)"></div>
+                </div>
+
+                <!-- Info/Warning -->
+                <div class="info-message" *ngIf="disableChoices">
+                    <p class="warning-text">You cannot change your choice after viewing the answer explanation or if the
+                        exam is already finished.</p>
+                </div>
+
+                <div class="warning-message" *ngIf="showWarning">
+                    <p class="warning-text">Please make a selection before we show the explanation.</p>
+                </div>
+
+                <!-- Navigation -->
+                <div class="navigation">
+                    <button (click)="goToPreviousQuestion()" [disabled]="currentQuestionIndex === 0" class="nav-button">
+                        Previous
+                    </button>
+                    <button (click)="submitAndNext()" class="nav-button">Next</button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Right Section (Question Status) -->
+        <div class="question-status-container">
+            <h3>Question Status</h3>
+            <ul class="status-list">
+                <li *ngFor="let status of questionStatuses; let i = index"
+                    [class.active]="status.questionId === currentQuestionDetails?.questionId">
+                    <div class="status-details">
+                        <span class="question-number">Q{{ i + 1 }}</span>
+                        <span class="status-indicator" [class.status-answered]="status.status === 'Answered'"
+                            [class.status-unanswered]="status.status === 'Not Started'"
+                            [class.status-review]="checkReviewStatus(status.questionId)">
+                            {{ status.status }}
+                        </span>
+                        <span *ngIf="checkReviewStatus(status.questionId)" class="review-label">
+                            <i class="icon-review"></i> Marked for Review
+                        </span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
