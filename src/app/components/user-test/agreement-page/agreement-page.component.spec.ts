@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AgreementPageComponent } from './agreement-page.component';
+import { globalTestProviders } from '../../../../testing/global-mocks';
 
 describe('AgreementPageComponent', () => {
   let component: AgreementPageComponent;
@@ -8,9 +9,10 @@ describe('AgreementPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AgreementPageComponent]
+      imports: [AgreementPageComponent],
+      providers: [...globalTestProviders]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(AgreementPageComponent);
     component = fixture.componentInstance;

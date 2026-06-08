@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PageOneComponent } from './page-one.component';
+import { globalTestProviders } from '../../../../testing/global-mocks';
 
 describe('PageOneComponent', () => {
   let component: PageOneComponent;
@@ -8,7 +9,8 @@ describe('PageOneComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PageOneComponent]
+      imports: [PageOneComponent],
+      providers: [...globalTestProviders]
     })
     .compileComponents();
 

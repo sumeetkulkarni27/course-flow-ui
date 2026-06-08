@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GetExamFeedbackAndSubmitComponent } from './get-exam-feedback-and-submit.component';
+import { globalTestProviders } from '../../../../testing/global-mocks';
 
 describe('GetExamFeedbackAndSubmitComponent', () => {
   let component: GetExamFeedbackAndSubmitComponent;
@@ -8,7 +9,8 @@ describe('GetExamFeedbackAndSubmitComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GetExamFeedbackAndSubmitComponent]
+      imports: [GetExamFeedbackAndSubmitComponent],
+      providers: [...globalTestProviders]
     })
     .compileComponents();
 

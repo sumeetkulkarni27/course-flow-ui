@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CoursesComponent } from './courses.component';
+import { globalTestProviders } from '../../../testing/global-mocks';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
@@ -8,9 +9,10 @@ describe('CoursesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CoursesComponent]
+      imports: [CoursesComponent],
+      providers: [...globalTestProviders]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
