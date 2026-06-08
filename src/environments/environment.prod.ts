@@ -13,7 +13,7 @@ const serverUrl='https://localhost:7244/api';
 // The list of file replacements can be found in `angular.json`.
 export const environment: EnvironmentConfiguration = {
   env_name: 'dev',
-  production: false,
+  production: true,
   apiUrl: serverUrl,
  entraIdConfig: {
     clientId: '6d1c1392-4adc-4f06-92fb-bdd65c74ae45',
