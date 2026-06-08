@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from './pages/footer/footer.component';
 import { HeaderComponent } from './pages/header/header.component';
-import { NgxSpinnerComponent } from 'ngx-spinner';
 import { MsalBroadcastService, MsalService } from '@azure/msal-angular';
 import { InteractionStatus } from '@azure/msal-browser';
 import { filter } from 'rxjs/operators';
@@ -15,7 +14,6 @@ import { CurrentUserService } from './services/current-user.service';
     RouterOutlet,
     FooterComponent,
     HeaderComponent,
-    NgxSpinnerComponent    
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
