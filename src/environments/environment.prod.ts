@@ -7,19 +7,19 @@ import { EnvironmentConfiguration } from "../app/models/environment-configuratio
 
 
 
-const serverUrl='https://localhost:7244/api';
+const serverUrl='https://courseflow-wep-api.azurewebsites.net/api';
 
 
 // The list of file replacements can be found in `angular.json`.
 export const environment: EnvironmentConfiguration = {
-  env_name: 'dev',
+  env_name: 'prod',
   production: true,
   apiUrl: serverUrl,
  entraIdConfig: {
     clientId: '6d1c1392-4adc-4f06-92fb-bdd65c74ae45',
     authority: 'https://courseflowapp.ciamlogin.com/',
-    redirectUri: 'http://localhost:4200/auth',
-    postLogoutRedirectUri: 'http://localhost:4200/courses',
+    redirectUri: 'https://wonderful-tree-00396d80f.7.azurestaticapps.net/auth',
+    postLogoutRedirectUri: 'https://wonderful-tree-00396d80f.7.azurestaticapps.net/courses',
     scopeUrls: {
       userReadScope: 'api://c4031612-e94c-4259-94f0-e45e3e11329a/User.Read',
       userWriteScope: 'api://c4031612-e94c-4259-94f0-e45e3e11329a/User.Write'
